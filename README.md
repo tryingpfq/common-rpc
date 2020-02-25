@@ -1,2 +1,2 @@
 # rpc_demo
-rpc
+rpc_demo
