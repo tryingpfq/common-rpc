@@ -1,0 +1,8 @@
+**/.idea
+**/target
+**/protos
+**/logs
+**.iml
+mmorpg-framework/src/main/resources/
+mmorpg-server/src/main/java/com/tryingpfq/logic/base/ai/
+mmorpg-server/src/test/java/other/
