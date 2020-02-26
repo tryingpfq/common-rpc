@@ -15,7 +15,7 @@ import java.net.Socket;
 public class RpcInvokerHandler implements InvocationHandler {
     private Class<?> intefaceClass;
 
-    public RpcInvokerHandler(Class<?> intefaceClass) {
+    public  RpcInvokerHandler(Class<?> intefaceClass) {
         this.intefaceClass = intefaceClass;
     }
 
@@ -30,6 +30,8 @@ public class RpcInvokerHandler implements InvocationHandler {
                         .setParameterTypes(method.getParameterTypes()).build();
                 output.writeObject(msg);
                 output.writeObject(args);
+
+                output.writeObject(method.getParameterTypes());
 
                 ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
                 try {

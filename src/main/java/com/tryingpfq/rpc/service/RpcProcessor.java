@@ -25,8 +25,8 @@ public class RpcProcessor implements BeanPostProcessor {
         Class<?> clazz = AopUtils.getTargetClass(bean);
         Provider provider = clazz.getAnnotation(Provider.class);
         if (provider != null) {
-            System.err.println("addCache  " + beanName);
-            ProviderServiceFacotry.addBeanCache(beanName, bean);
+            Class<?> providerCClazz = provider.clazz();
+            ProviderServiceFacotry.addBeanCache(providerCClazz.getName(), bean);
         }
 
         for (Field field : clazz.getDeclaredFields()) {

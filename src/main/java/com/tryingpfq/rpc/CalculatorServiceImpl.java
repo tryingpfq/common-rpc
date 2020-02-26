@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @author tryingpfq
  * @date 2020/2/25
  **/
-@Provider(clazz = CalculatorServiceImpl.class)
+@Provider(clazz = CalculatorService.class)
 @Component
 public class CalculatorServiceImpl implements CalculatorService {
 

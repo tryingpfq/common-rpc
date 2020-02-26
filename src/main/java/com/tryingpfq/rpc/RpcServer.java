@@ -3,6 +3,8 @@ package com.tryingpfq.rpc;
 import com.tryingpfq.rpc.data.RpcCons;
 import com.tryingpfq.rpc.service.ProviderServiceFacotry;
 import com.tryingpfq.rpc.service.RpcInvoerMsg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,8 +17,11 @@ import java.net.Socket;
  * @date 2020/2/25
  **/
 public class RpcServer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RpcServer.class);
+
     public void start() throws Exception {
         final ServerSocket server = new ServerSocket(RpcCons.PORT);
+        LOGGER.info("start server port:[{}]",RpcCons.PORT);
         while (true) {
             final Socket socket = server.accept();
             new Thread(new Thread(){
@@ -30,13 +35,17 @@ public class RpcServer {
                                 System.err.println("err the obj is not msg");
                             }
                             RpcInvoerMsg msg = (RpcInvoerMsg) obj;
-                            System.out.println("beanName");
                             Object bean = ProviderServiceFacotry.getBean(msg.getBeanName());
                             if(bean == null){
                                 System.err.println("bean is null");
                             }
+                            LOGGER.info("{}",msg.toString());
                             Object[] arguments = (Object[]) input.readObject();
-                            Method method = bean.getClass().getMethod(msg.getMethodName(), msg.getParameterTypes());
+
+                            Class<?>[] parameterTypes = (Class<?>[]) input.readObject();
+
+                            // 不知道为什么 msg中的class[] 不能写过来
+                            Method method = bean.getClass().getMethod(msg.getMethodName(), parameterTypes);
                             Object result = method.invoke(bean, arguments);
                             output.writeObject(result);
                         } catch (Throwable t) {
@@ -51,7 +60,6 @@ public class RpcServer {
                     }
                 }
             }).start();
-            System.err.println("server start port " + RpcCons.PORT);
         }
     }
 }

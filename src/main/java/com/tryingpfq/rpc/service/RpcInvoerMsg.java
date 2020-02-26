@@ -2,11 +2,14 @@ package com.tryingpfq.rpc.service;
 
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
+import java.util.Arrays;
+
 /**
  * @author tryingpfq
  * @date 2020/2/25
  **/
-public class RpcInvoerMsg {
+public class RpcInvoerMsg implements Serializable {
     private String beanName;
 
     private String methodName;
@@ -68,5 +71,14 @@ public class RpcInvoerMsg {
         public String getMethodName() {
             return methodName;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "RpcInvoerMsg{" +
+                "beanName='" + beanName + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", parameterTypes=" + Arrays.toString(parameterTypes) +
+                '}';
     }
 }
