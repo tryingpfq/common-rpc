@@ -2,6 +2,9 @@ package com.tryingpfq.rpc.service;
 
 import com.tryingpfq.rpc.annotion.Consumer;
 import com.tryingpfq.rpc.annotion.Provider;
+import com.tryingpfq.rpc.consumer.RpcConsumerProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -16,6 +19,7 @@ import java.lang.reflect.Field;
 @Component
 public class RpcProcessor implements BeanPostProcessor {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(RpcProcessor.class);
 
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         return bean;
@@ -26,6 +30,7 @@ public class RpcProcessor implements BeanPostProcessor {
         Provider provider = clazz.getAnnotation(Provider.class);
         if (provider != null) {
             Class<?> providerCClazz = provider.clazz();
+            LOGGER.info("add provider name:{}",providerCClazz.getName());
             ProviderServiceFacotry.addBeanCache(providerCClazz.getName(), bean);
         }
 
@@ -36,8 +41,8 @@ public class RpcProcessor implements BeanPostProcessor {
             }
             Class<?> type = field.getType();
             field.setAccessible(true);
-
-            Object object = RpcConsumers.createProxy(type);
+            Object object = RpcConsumerProxy.createProxy(type);
+            LOGGER.info("add consumer proxy {}",object.getClass().getName());
             try {
                 field.set(bean,object);
             } catch (IllegalAccessException e) {

@@ -1,8 +1,8 @@
 package com.tryingpfq;
 
 import com.tryingpfq.rpc.CalculatorService;
-import com.tryingpfq.rpc.RpcClient;
-import com.tryingpfq.rpc.service.RpcInvokerHandler;
+import com.tryingpfq.rpc.consumer.RpcClient;
+import com.tryingpfq.rpc.consumer.RpcConsumerProxy;
 
 import java.lang.reflect.Proxy;
 
@@ -17,7 +17,7 @@ public class ProxyTest {
         try {
             //CalculatorService refer = client.refer(CalculatorService.class);
             //System.err.println(refer);
-            Object object = Proxy.newProxyInstance(CalculatorService.class.getClassLoader(), new Class<?>[]{CalculatorService.class}, new RpcInvokerHandler(CalculatorService.class));
+            Object object = Proxy.newProxyInstance(CalculatorService.class.getClassLoader(), new Class<?>[]{CalculatorService.class}, new RpcConsumerProxy.RpcInvokerHandler(CalculatorService.class));
             System.err.println(object);
         } catch (Exception e) {
             e.printStackTrace();

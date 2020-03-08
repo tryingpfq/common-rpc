@@ -1,6 +1,4 @@
-package com.tryingpfq.rpc;
-
-import com.tryingpfq.rpc.service.RpcConsumers;
+package com.tryingpfq.rpc.consumer;
 
 /**
  * @author tryingpfq
@@ -15,7 +13,7 @@ public class RpcClient {
         if (! interfaceClass.isInterface())
             throw new IllegalArgumentException("The " + interfaceClass.getName() + " must be interface class!");
 
-        return (T) RpcConsumers.createProxy(interfaceClass);
+        return (T) RpcConsumerProxy.createProxy(interfaceClass);
     }
 
 }

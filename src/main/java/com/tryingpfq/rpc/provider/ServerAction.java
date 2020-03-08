@@ -1,6 +1,5 @@
-package com.tryingpfq.rpc.server;
+package com.tryingpfq.rpc.provider;
 
-import com.tryingpfq.rpc.RpcServer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -8,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author tryingpfq
  * @date 2020/2/25
  **/
-public class ServerApplication {
+public class ServerAction {
 
     private static ApplicationContext context;
 
@@ -19,7 +18,7 @@ public class ServerApplication {
     public static void main(String[] args) {
         RpcServer server = new RpcServer();
         try {
-            server.start();
+            server.start(3322);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package com.tryingpfq.rpc.data;
+package com.tryingpfq.rpc;
 
 /**
  * @author tryingpfq
