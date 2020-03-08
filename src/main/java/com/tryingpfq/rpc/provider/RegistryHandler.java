@@ -18,8 +18,7 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Object result = new Object();
-
+        Object result;
         //invoker
         RpcInvokerMsg reqMsg = (RpcInvokerMsg) msg;
         Object bean = ProviderServiceFacotry.getBean(reqMsg.getBeanName());
